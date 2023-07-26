@@ -1,0 +1,2 @@
+# WayStar
+Windows Enummeration Script
