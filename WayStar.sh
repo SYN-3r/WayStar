@@ -65,6 +65,9 @@ net accounts
 #display groups
 net localgroup
 
+#find administrators
+net localgroup administrators
+
 #display all processes
 wmic process get procesid,commandline
 
@@ -97,4 +100,23 @@ wmic startup get caption,command
 
 #Looks fro scheduled tasks
 schtasks /query /fo LIST /v | findstr "TaskName Author: Run: User:"
+
+#Look for SAM or SYSTEM files
+dir %SYSTEMROOT%\repair\SAM 2>nul
+dir %SYSTEMROOT%\System32\config\RegBack\SAM 2>nul
+dir %SYSTEMROOT%\System32\config\SAM 2>nul
+dir %SYSTEMROOT%\repair\system 2>nul
+dir %SYSTEMROOT%\System32\config\SYSTEM 2>nul
+dir %SYSTEMROOT%\System32\config\RegBack\system 2>nul
+dir /a /b /s SAM.b*
+
+#vnc, kdbx, or rdp files
+dir /a /s /b *.kdbx *vnc.ini *.rdp
+
+#check to see if powershell exists
+REG QUERY "HKLM\SOFTWARE\Microsoft\PowerShell\1\PowerShellEngine" /v PowerShellVersion 
+
+
+
+
 
