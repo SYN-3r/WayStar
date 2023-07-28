@@ -49,12 +49,70 @@ printf """
 """
 }
 
+#display imortant information upon initial login
+StartUp() {
+#shows current user
+user=$(echo %USERNAME%)
+#displays how many times the current user has logged in
+logons=$(wmic netlogin where (name like "%$user%") ge)
+sysfo=$(systeminfo)
+
+printf """
+  ${Cyan} You are currently: ${Normal}$user
+  ${Cyan} Amount of times this user has logged on: ${Normal}$logons \n
+"""
+System info: 
+if [ systeminfo 2>/dev/null 1>/dev/null ];
+then
+      printf """
+  ${Cyan} System Info: ${Normal}$sysfo
+  """
+else
+      printf """
+  ${Cyan} System Info:${Normal} Unable to display system info
+  """
+fi
+}
+
+#finds different users and groups
+FindUsers() {
+printf """
+  ${Cyan}FIND USERS \n\n
+  What would you like to do?
+  1. Display Users
+  2. Display accounts
+  3. Display groups
+  4. Display Administrators
+  Q. Quit \n\n ${Normal}
+  """
+  read  -r userselect
+
+if [ $userselect == "1" ];
+then
+      #code
+elif [ $userselect== "2" ];
+then
+      #code
+elif [ $userselect== "3" ];
+then
+      #code
+elif [ $userselect== "4" ];
+then
+      #code
+elif [ $userselect== "Q" ];
+then
+      #code
+else
+printf """
+  ${Red}Pleas eneter a valid selection
+  """
+fi
+}
+
 #############################################
 #             COMMANDS TO USE
 #############################################
 
-#displays system info
-systeminfo
 
 #display users
 net users 
@@ -73,11 +131,6 @@ wmic process get procesid,commandline
 
 #display logical drives
 wmic logicaldisk get description,name
-
-#shows the amount of times the current user has logged on
-#can be subsitituted with other user names
-user=$(echo %USERNAME%)
-wmic netlogin where (name like "%$user%") ge
 
 #search password registry for password
 reg query HKLM if /fd password /t REG_SZ /s
