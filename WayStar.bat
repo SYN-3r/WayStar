@@ -1,6 +1,110 @@
-#!/bin/bash
 
 #WayStar by SYN-3r
+
+#############################################
+#              START OF SCRIPT              #
+#############################################
+
+@echo off
+
+
+
+#############################################
+#             COMMANDS TO USE               #
+#############################################
+
+
+#display users
+net users 
+
+#display accounts
+net accounts
+
+#display groups
+net localgroup
+
+#find administrators
+net localgroup administrators
+
+#display all processes
+wmic process get procesid,commandline
+
+#display logical drives
+wmic logicaldisk get description,name
+
+#search password registry for password
+reg query HKLM if /fd password /t REG_SZ /s
+
+#antivirus detection 
+WMIC /Node:localhost /Namespace:\\root\SecurityCenter2 Path AntiVirusProduct Get displayName
+
+#Looks for passwords
+reg query "HKLM\SOFTWARE\Microsoft\Windows NT\Currentversion\Winlogon" 2>nul | findstr "DefaultUserName DefaultDomainName DefaultPassword" 
+reg query HKLM /f password /t REG_SZ /s /k
+reg query HKCU /f password /t REG_SZ /s /k
+reg query "HKCU\Software\ORL\WinVNC3\Password" 
+reg query "HKLM\SYSTEM\Current\ControlSet\Services\SNMP" 
+reg query "HKCU\Software\SimonTatham\PuTTY\Sessions" 
+#files that may contain passwords
+dir /s /b *pass* *cred* *vnc* *.config*
+
+#Looks fro commands run at startup
+wmic startup get caption,command
+
+#Looks fro scheduled tasks
+schtasks /query /fo LIST /v | findstr "TaskName Author: Run: User:"
+
+#Look for SAM or SYSTEM files
+dir %SYSTEMROOT%\repair\SAM 2>nul
+dir %SYSTEMROOT%\System32\config\RegBack\SAM 2>nul
+dir %SYSTEMROOT%\System32\config\SAM 2>nul
+dir %SYSTEMROOT%\repair\system 2>nul
+dir %SYSTEMROOT%\System32\config\SYSTEM 2>nul
+dir %SYSTEMROOT%\System32\config\RegBack\system 2>nul
+dir /a /b /s SAM.b*
+
+#vnc, kdbx, or rdp files
+dir /a /s /b *.kdbx *vnc.ini *.rdp
+
+#check to see if powershell exists
+REG QUERY "HKLM\SOFTWARE\Microsoft\PowerShell\1\PowerShellEngine" /v PowerShellVersion 
+
+
+
+############################################################
+#                          ART                             #
+############################################################
+#color table
+#val   color       normal          bold              background
+#0 	  Black 	   <Esc>[30m 	   <Esc>[1;30m 	        <Esc>[40m
+#1 	  Red 	     <Esc>[31m 	   <Esc>[1;31m 	        <Esc>[41m
+#2 	  Green 	   <Esc>[32m 	   <Esc>[1;32m 	        <Esc>[42m
+#3 	  Yellow 	   <Esc>[33m 	   <Esc>[1;33m 	        <Esc>[43m
+#4 	  Blue 	     <Esc>[34m 	   <Esc>[1;34m 	        <Esc>[44m
+#5 	  Magenta 	 <Esc>[35m 	   <Esc>[1;35m 	        <Esc>[45m
+#6 	  Cyan 	     <Esc>[36m 	   <Esc>[1;36m 	        <Esc>[46m
+#7 	  White 	   <Esc>[37m 	   <Esc>[1;37m 	        <Esc>[47m
+
+
+#color codes
+SET ANSIREDFG=%ASCII27%[31m
+SET ANSICYANFG=%ASCII27%[37m
+SET ANSIYELLOWFG=%ASCII27%[33m
+SET ANSIBLUEFG=%ASCII27%[34m
+echo %ANSIREDFG% Lava %ANSICYANFG% Cyan/Aqua/Teal text %ANSIYELLOWFG% Sun
+echo %ANSIBLUEFG% Water %ANSICYANFG% Sky %ANSIYELLOWFG% Sun
+
+#resets text attributes
+<Esc>[0m
+
+#blinking text
+<Esc>[5m
+
+
+
+############################################################
+#                 BASH CODE TO BE TRANSLATED               #
+############################################################
 
 #FUNCTIONS
 
@@ -73,103 +177,5 @@ else
   """
 fi
 }
-
-#finds different users and groups
-FindUsers() {
-printf """
-  ${Cyan}FIND USERS \n\n
-  What would you like to do?
-  1. Display Users
-  2. Display accounts
-  3. Display groups
-  4. Display Administrators
-  Q. Quit \n\n ${Normal}
-  """
-  read  -r userselect
-
-if [ $userselect == "1" ];
-then
-      #code
-elif [ $userselect== "2" ];
-then
-      #code
-elif [ $userselect== "3" ];
-then
-      #code
-elif [ $userselect== "4" ];
-then
-      #code
-elif [ $userselect== "Q" ];
-then
-      #code
-else
-printf """
-  ${Red}Pleas eneter a valid selection
-  """
-fi
-}
-
-#############################################
-#             COMMANDS TO USE
-#############################################
-
-
-#display users
-net users 
-
-#display accounts
-net accounts
-
-#display groups
-net localgroup
-
-#find administrators
-net localgroup administrators
-
-#display all processes
-wmic process get procesid,commandline
-
-#display logical drives
-wmic logicaldisk get description,name
-
-#search password registry for password
-reg query HKLM if /fd password /t REG_SZ /s
-
-#antivirus detection 
-WMIC /Node:localhost /Namespace:\\root\SecurityCenter2 Path AntiVirusProduct Get displayName
-
-#Looks for passwords
-reg query "HKLM\SOFTWARE\Microsoft\Windows NT\Currentversion\Winlogon" 2>nul | findstr "DefaultUserName DefaultDomainName DefaultPassword" 
-reg query HKLM /f password /t REG_SZ /s /k
-reg query HKCU /f password /t REG_SZ /s /k
-reg query "HKCU\Software\ORL\WinVNC3\Password" 
-reg query "HKLM\SYSTEM\Current\ControlSet\Services\SNMP" 
-reg query "HKCU\Software\SimonTatham\PuTTY\Sessions" 
-#files that may contain passwords
-dir /s /b *pass* *cred* *vnc* *.config*
-
-#Looks fro commands run at startup
-wmic startup get caption,command
-
-#Looks fro scheduled tasks
-schtasks /query /fo LIST /v | findstr "TaskName Author: Run: User:"
-
-#Look for SAM or SYSTEM files
-dir %SYSTEMROOT%\repair\SAM 2>nul
-dir %SYSTEMROOT%\System32\config\RegBack\SAM 2>nul
-dir %SYSTEMROOT%\System32\config\SAM 2>nul
-dir %SYSTEMROOT%\repair\system 2>nul
-dir %SYSTEMROOT%\System32\config\SYSTEM 2>nul
-dir %SYSTEMROOT%\System32\config\RegBack\system 2>nul
-dir /a /b /s SAM.b*
-
-#vnc, kdbx, or rdp files
-dir /a /s /b *.kdbx *vnc.ini *.rdp
-
-#check to see if powershell exists
-REG QUERY "HKLM\SOFTWARE\Microsoft\PowerShell\1\PowerShellEngine" /v PowerShellVersion 
-
-
-
 
 
