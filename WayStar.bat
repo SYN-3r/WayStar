@@ -45,9 +45,9 @@ echo.
 echo.
 
 :: BEGINNING OF SCRIPT
-echo %cyan% ..................................................... %normal%
+echo %blue% ..................................................... %normal%
 echo %green%             SITUATIONAL AWARENESS %normal
-echo %cyan% ..................................................... %normal%
+echo %blue% ..................................................... %normal%
 echo .
 echo %cyan% Current user: %normal%
 echo %USERNAME%
@@ -62,9 +62,12 @@ echo %cyan% Date of last reboot: %normal%
 dir /a c:\pagefile.sys
 echo.
 
-echo %cyan% ..................................................... %normal%
+echo %cyan% Commands run at startup: %normal%
+wmic startup get caption,command
+
+echo %blue% ..................................................... %normal%
 echo %green%                    OS INFORMATION %normal
-echo %cyan% ..................................................... %normal%
+echo %blue% ..................................................... %normal%
 echo .
 
 echo %green% Windows  Product Name: %normal%
@@ -77,40 +80,46 @@ echo %green% Windows  System Root: %normal%
 HKLM\Software\Microsoft\Windows NT\CurrentVersion /v SystemRoot
 echo.
 
-echo %cyan% Version ands system info: %normal%
+echo %cyan% Version and system info: %normal%
 ver
 echo.
 systeminfo
 echo.
  
 
-
-
-echo %cyan% ..................................................... %normal%
+echo %blue% ..................................................... %normal%
 echo %green%            USERS, ACCOUNTS, AND GROUPS %normal
-echo %cyan% ..................................................... %normal%
+echo %blue% ..................................................... %normal%
 echo .
 
-:: display users
-%cyan% Users: %normal%
-net users 
-
-:: display accounts
-%cyan% Accounts: %normal%
-net accounts
-
-:: display groups
-%cyan% Groups: %normal%
-net localgroup
-
-:: find administrators
-%cyan% Admins: %normal%
+echo %cyan% Admins: %normal%
 net localgroup administrators
 echo.
 
-echo %cyan% ..................................................... %normal%
+%cyan% Users: %normal%
+net users 
+echo.
+echo %green% Useful Users: %normal%
+dsquery * -filter "(objectclass=user)" -attr name dnshostname samaccountname description -limit 0
+echo.
+
+echo %cyan% Groups: %normal%
+net localgroup
+echo.
+echo %green% Useful Groups: %normal%
+dsquery * -filter "(objectclass=group)" -attr name dnshostname samaccountname description -limit 0
+echo.
+
+echo %cyan% Accounts: %normal%
+net accounts
+echo.
+
+echo %green% Useful Computers: %normal%
+dsquery * -filter "(objectclass=computer)" -attr name dnshostname operatingsystem description -limit 0
+
+echo %blue% ..................................................... %normal%
 echo %green%                   PASSWORDS %normal
-echo %cyan% ..................................................... %normal%
+echo %blue% ..................................................... %normal%
 echo .
 
 echo %cyan% HKLM and HKCU: %normal%
@@ -120,23 +129,51 @@ reg query HKCU /f password /t REG_SZ /s /k
 reg query "HKCU\Software\ORL\WinVNC3\Password" 
 reg query "HKLM\SYSTEM\Current\ControlSet\Services\SNMP" 
 reg query "HKCU\Software\SimonTatham\PuTTY\Sessions" 
+reg query HKLM if /fd password /t REG_SZ /s
+echo.
 
 :: searches passwords for cleartext paswswords
 %cyan% Cleartext Passwords: %normal%
 dir /s /b *pass* *cred* *vnc* *.config*
-
-:: search password registry for password
-reg query HKLM if /fd password /t REG_SZ /s
-echo.
+findstr /SI password *.txt
 
 
-echo %cyan% ..................................................... %normal%
-echo %green%               SECURITY DETECTION %normal
-echo %cyan% ..................................................... %normal%
+echo %blue% ..................................................... %normal%
+echo %green%               SECURITY DETECTION  %normal
+echo %blue% ..................................................... %normal%
 echo .
-:: antivirus detection 
+
+echo %red% Antivirus detection: %normal%
 WMIC /Node:localhost /Namespace:\\root\SecurityCenter2 Path AntiVirusProduct Get displayName
 echo.
+
+echo %blue% ..................................................... %normal%
+echo %green%                SCHED TASKS AND FILES %normal
+echo %blue% ..................................................... %normal%
+echo .
+
+echo %cyan% Scheduled tasks: %normal%
+schtasks /query /fo LIST /v | findstr "TaskName Author: Run: User:"
+
+echo %cyan% SAM and SYSTEM files: %normal%
+dir %SYSTEMROOT%\repair\SAM 2>nul
+dir %SYSTEMROOT%\System32\config\RegBack\SAM 2>nul
+dir %SYSTEMROOT%\System32\config\SAM 2>nul
+dir %SYSTEMROOT%\repair\system 2>nul
+dir %SYSTEMROOT%\System32\config\SYSTEM 2>nul
+dir %SYSTEMROOT%\System32\config\RegBack\system 2>nul
+dir /a /b /s SAM.b*
+echo.
+
+echo %cyan% Vnc, kdbx, or rdp files: %normal%
+dir /a /s /b *.kdbx *vnc.ini *.rdp
+echo.
+
+
+echo %blue% ..................................................... %normal%
+echo %green%                 %normal
+echo %blue% ..................................................... %normal%
+echo .
 
 
 :::::::::::::::::::::::::::::::::::::::::::::::
@@ -150,22 +187,5 @@ wmic process get procesid,commandline
 wmic logicaldisk get description,name
 
 
-:: Looks fro commands run at startup
-wmic startup get caption,command
-
-:: Looks for scheduled tasks
-schtasks /query /fo LIST /v | findstr "TaskName Author: Run: User:"
-
-:: Look for SAM or SYSTEM files
-dir %SYSTEMROOT%\repair\SAM 2>nul
-dir %SYSTEMROOT%\System32\config\RegBack\SAM 2>nul
-dir %SYSTEMROOT%\System32\config\SAM 2>nul
-dir %SYSTEMROOT%\repair\system 2>nul
-dir %SYSTEMROOT%\System32\config\SYSTEM 2>nul
-dir %SYSTEMROOT%\System32\config\RegBack\system 2>nul
-dir /a /b /s SAM.b*
-
-:: vnc, kdbx, or rdp files
-dir /a /s /b *.kdbx *vnc.ini *.rdp
 
 
