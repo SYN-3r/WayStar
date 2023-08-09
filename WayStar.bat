@@ -171,14 +171,12 @@ echo.
 
 
 echo %blue% ..................................................... %normal%
-echo %green%                 %normal
+echo %green%                 Other Stuff to add %normal
 echo %blue% ..................................................... %normal%
 echo .
 
 
-:::::::::::::::::::::::::::::::::::::::::::::::
-::             COMMANDS TO USE               ::
-:::::::::::::::::::::::::::::::::::::::::::::::
+
 
 :: display all processes
 wmic process get procesid,commandline
@@ -187,5 +185,18 @@ wmic process get procesid,commandline
 wmic logicaldisk get description,name
 
 
+echo %blue% ..................................................... %normal%
+echo %green%                     Powershell   %normal%
+echo %blue% ..................................................... %normal%
+echo .
 
+powershell
+
+echo %cyan% Version: %normal%
+$psVersionTable
+echo.
+
+echo %cyan% Antivirus: %normal%
+Get-WmiObject -Namespace "root\SecurityCenter2" -Class AntiVirusProduct -ErrorAction Stop
+echo.
 
