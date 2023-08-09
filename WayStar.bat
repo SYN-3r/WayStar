@@ -14,33 +14,33 @@ SET white=<Esc>[1;37m
 SET blink=<Esc>[5m
 SET normal=<Esc>[0m
 
-echo "/-----------------------------------------------------------------------------\\"
-echo "|                           %white% %blink%  ⭐%normal%  %cyan% WayStar by SYN-3r %white% %blink%  ⭐%normal%                            %normal% |"
-echo "|                       %cyan% A Windows Enummeration Script                         %normal% |"
-echo "|-----------------------------------------------------------------------------|"
-echo "|  %magenta% , : | | %cyan% | |:  %green% ||  :     %magenta% ,  :  |  |+%cyan% |: | :%green%  : :|   .        %normal% ,%cyan%               . %normal% |"
-echo "|      %magenta% , : | %cyan% :|  ||  %green% |:  :    %magenta% ,  |  | :%cyan% | : | : |%green% :   %cyan% |  %white% %blink%  .%normal%                     %magenta% : %normal% |"
-echo "|         %magenta% %white% %blink%  .%normal% %magenta% ' ':  %cyan% ||  |:  %green% |  '%magenta%        , || %cyan% | : | %green% |: : |   .%normal%   ,           %normal% %white% %blink%  .%normal%    %magenta% :. %normal% |"
-echo "|                %magenta% ,'  ||  %cyan% |  ' |   %normal% *%magenta%     , : | | %cyan% :| |%normal% *%green% |  :   %magenta% :               %cyan% :%green% | %normal% |"
-echo "|        *    *       %magenta% ,  |  : %cyan% :  |  %green% . %magenta%      , ' :| | %cyan% :| . %green% : :         %normal% *%cyan%    :.%green% || %normal% |"
-echo "|             %white% %blink%  .%normal% ,           %magenta%  | |  %cyan% |  %green% : .:|  %magenta%      , | |%cyan% | | : %green% |: |          | || %normal% |"
-echo "|      '          %white% %blink%  .%normal%          %magenta% + ,  |  %green% :  .: . %magenta%         '| | %cyan% : :|%green%  :    %normal% %white% %blink%  .%normal%    %magenta% |:%cyan% | |%green% | %normal% |"
-echo "|         %white% %blink%  .%normal%                  %white% %blink%  .%normal%     %magenta% , %cyan% *|  |%green% | : %normal%       ,%magenta%     | | %cyan% :| %green% | :      %magenta% |:%cyan% | %green% |  %normal% |"
-echo "| %white% %blink%  .%normal%                 %white% %blink%  .%normal%           %white% %blink%  .%normal%         %magenta% || %green% |.: %normal% *%magenta%           | |%cyan% | : %green% :     %magenta% :|%cyan% ||%green% |   %normal% |"
-echo "|        %white% %blink%  .%normal%             %white% %blink%  .%normal%    . *    %white% %blink%  .%normal%    %white% %blink%  .%normal%   %magenta% , |||.  %normal% +        +%magenta%  '| %cyan% ||%green% |  %white% %blink%  .%normal%   %magenta% ||%cyan% ,%green% |    %normal% |"
-echo "|     %white% %blink%  .%normal%              *              %white% %blink%  .%normal%      %magenta% +:,|%green% | %magenta%             %white% %blink%  .%normal%  %magenta% ||%cyan% ||  %magenta% :%white% %blink%  .%normal% %magenta% |%cyan% |,%green% |     %normal% |"
-echo "| +                      %white% %blink%  .%normal%                 %magenta% ..%magenta% |%cyan% |%normal% *%magenta%           . | :%cyan% ,|%green% |+ %magenta% |||%cyan% ,%green% |      %normal% |"
-echo "|     %white% %blink%  .%normal%                          +      %magenta% : %cyan% ||%green% |,%magenta%         .| :| %cyan% | | %green% |.| %magenta% |%cyan% |%green% ,     %normal% %white% %blink%  .%normal%   %normal% |"
-echo "|       *     +   '               +  %magenta% :|%green% | |, %magenta%     :.%cyan% +. ||%green%  || | %magenta% |:,%cyan% || %green% ,          %normal% |"
-echo "|                            %white% %blink%  .%normal%       %magenta% .|%green% |, .%magenta%     ..|%cyan% | | %green% |: %cyan% ', ,| %magenta% | %cyan% |%green% ,  %normal% +         %normal% |"
-echo "|  %white% %blink%  .%normal%        + +                      %magenta% ||  %magenta%       ||%cyan% |: %green% ,       %magenta% :%cyan% | %green% |               %normal% |"
-echo "|              +         %white% %blink%  .%normal%       %white% %blink%  .%normal%     %magenta% | %green% .  %magenta%     ,|%cyan% ||%green% .:      %magenta% .%cyan% |%green% |    %normal% %white% %blink%  .%normal%       %white% %blink%  .%normal%     ,%normal% |"
-echo "|          '                           %magenta% ,|%green% . %magenta%   %white% %blink%  .%normal% %magenta%   ,:%cyan% |%green% ||   %normal% + %magenta% |%cyan% |%green% '     %normal% ,           %normal% |"
-echo "|  %black% __    %normal% +      *                         %green% ,'%magenta%        ,%cyan% '%green% |.    %magenta% ,%green% :                 %normal% |"
-echo "|%black% ^,  ,---^^^----....____,..^---,^,,----.,.___          %cyan% ,%green% .    %cyan% ,%green% .  .    %black% ____,.,-%normal% |"
-echo "|%black% ::::___,---^^,---^   ^  ^ ^::::::::^   ::::^^^---,..___ __,..---^^::::::::   %normal% |"
-echo "|%black% --^ ::::::  :^::::::::::::::::::::: ^  ::::::::::::::::: :::  ,,--..,__ :::  %normal% |"
-echo "\-----------------------------------------------------------------------------/"
+echo /-----------------------------------------------------------------------------\\
+echo ^|                           %white% %blink%  ⭐%normal%  %cyan% WayStar by SYN-3r %white% %blink%  ⭐%normal%                            %normal% ^|
+echo ^|                       %cyan% A Windows Enummeration Script                         %normal% ^|
+echo ^|-----------------------------------------------------------------------------^|
+echo ^|  %magenta% , : ^| ^| %cyan% ^| ^|:  %green% ^|^|  :     %magenta% ,  :  ^|  ^|+%cyan% ^|: ^| :%green%  : :^|   .        %normal% ,%cyan%               . %normal% ^|
+echo ^|      %magenta% , : ^| %cyan% :^|  ^|^|  %green% ^|:  :    %magenta% ,  ^|  ^| :%cyan% ^| : ^| : ^|%green% :   %cyan% ^|  %white% %blink%  .%normal%                     %magenta% : %normal% ^|
+echo ^|         %magenta% %white% %blink%  .%normal% %magenta% ' ':  %cyan% ^|^|  ^|:  %green% ^|  '%magenta%        , ^|^| %cyan% ^| : ^| %green% ^|: : ^|   .%normal%   ,           %normal% %white% %blink%  .%normal%    %magenta% :. %normal% ^|
+echo ^|                %magenta% ,'  ^|^|  %cyan% ^|  ' ^|   %normal% *%magenta%     , : ^| ^| %cyan% :^| ^|%normal% *%green% ^|  :   %magenta% :               %cyan% :%green% ^| %normal% ^|
+echo ^|        *    *       %magenta% ,  ^|  : %cyan% :  ^|  %green% . %magenta%      , ' :^| ^| %cyan% :^| . %green% : :         %normal% *%cyan%    :.%green% ^|^| %normal% ^|
+echo ^|             %white% %blink%  .%normal% ,           %magenta%  ^| ^|  %cyan% ^|  %green% : .:^|  %magenta%      , ^| ^|%cyan% ^| ^| : %green% ^|: ^|          ^| ^|^| %normal% ^|
+echo ^|      '          %white% %blink%  .%normal%          %magenta% + ,  ^|  %green% :  .: . %magenta%         '^| ^| %cyan% : :^|%green%  :    %normal% %white% %blink%  .%normal%    %magenta% ^|:%cyan% ^| ^|%green% ^| %normal% ^|
+echo ^|         %white% %blink%  .%normal%                  %white% %blink%  .%normal%     %magenta% , %cyan% *^|  ^|%green% ^| : %normal%       ,%magenta%     ^| ^| %cyan% :^| %green% ^| :      %magenta% ^|:%cyan% ^| %green% ^|  %normal% ^|
+echo ^| %white% %blink%  .%normal%                 %white% %blink%  .%normal%           %white% %blink%  .%normal%         %magenta% ^|^| %green% ^|.: %normal% *%magenta%           ^| ^|%cyan% ^| : %green% :     %magenta% :^|%cyan% ^|^|%green% ^|   %normal% ^|
+echo ^|        %white% %blink%  .%normal%             %white% %blink%  .%normal%    . *    %white% %blink%  .%normal%    %white% %blink%  .%normal%   %magenta% , ^|^|^|.  %normal% +        +%magenta%  '^| %cyan% ^|^|%green% ^|  %white% %blink%  .%normal%   %magenta% ^|^|%cyan% ,%green% ^|    %normal% ^|
+echo ^|     %white% %blink%  .%normal%              *              %white% %blink%  .%normal%      %magenta% +:,^|%green% ^| %magenta%             %white% %blink%  .%normal%  %magenta% ^|^|%cyan% ^|^|  %magenta% :%white% %blink%  .%normal% %magenta% ^|%cyan% ^|,%green% ^|     %normal% ^|
+echo ^| +                      %white% %blink%  .%normal%                 %magenta% ..%magenta% ^|%cyan% ^|%normal% *%magenta%           . ^| :%cyan% ,^|%green% ^|+ %magenta% ^|^|^|%cyan% ,%green% ^|      %normal% ^|
+echo ^|     %white% %blink%  .%normal%                          +      %magenta% : %cyan% ^|^|%green% ^|,%magenta%         .^| :^| %cyan% ^| ^| %green% ^|.^| %magenta% ^|%cyan% ^|%green% ,     %normal% %white% %blink%  .%normal%   %normal% ^|
+echo ^|       *     +   '               +  %magenta% :^|%green% ^| ^|, %magenta%     :.%cyan% +. ^|^|%green%  ^|^| ^| %magenta% ^|:,%cyan% ^|^| %green% ,          %normal% ^|
+echo ^|                            %white% %blink%  .%normal%       %magenta% .^|%green% ^|, .%magenta%     ..^|%cyan% ^| ^| %green% ^|: %cyan% ', ,^| %magenta% ^| %cyan% ^|%green% ,  %normal% +         %normal% ^|
+echo ^|  %white% %blink%  .%normal%        + +                      %magenta% ^|^|  %magenta%       ^|^|%cyan% ^|: %green% ,       %magenta% :%cyan% ^| %green% ^|               %normal% ^|
+echo ^|              +         %white% %blink%  .%normal%       %white% %blink%  .%normal%     %magenta% ^| %green% .  %magenta%     ,^|%cyan% ^|^|%green% .:      %magenta% .%cyan% ^|%green% ^|    %normal% %white% %blink%  .%normal%       %white% %blink%  .%normal%     ,%normal% ^|
+echo ^|          '                           %magenta% ,^|%green% . %magenta%   %white% %blink%  .%normal% %magenta%   ,:%cyan% ^|%green% ^|^|   %normal% + %magenta% ^|%cyan% ^|%green% '     %normal% ,           %normal% ^|
+echo ^|  %black% __    %normal% +      *                         %green% ,'%magenta%        ,%cyan% '%green% ^|.    %magenta% ,%green% :                 %normal% ^|
+echo ^|%black% ^,  ,---^^^----....____,..^---,^,,----.,.___          %cyan% ,%green% .    %cyan% ,%green% .  .    %black% ____,.,-%normal% ^|
+echo ^|%black% ::::___,---^^,---^   ^  ^ ^::::::::^   ::::^^^---,..___ __,..---^^::::::::   %normal% ^|
+echo ^|%black% --^ ::::::  :^::::::::::::::::::::: ^  ::::::::::::::::: :::  ,,--..,__ :::  %normal% ^|
+echo \-----------------------------------------------------------------------------/
 echo.
 echo.
 
@@ -123,7 +123,7 @@ echo %blue% ..................................................... %normal%
 echo .
 
 echo %cyan% HKLM and HKCU: %normal%
-reg query "HKLM\SOFTWARE\Microsoft\Windows NT\Currentversion\Winlogon" 2>nul | findstr "DefaultUserName DefaultDomainName DefaultPassword" 
+reg query "HKLM\SOFTWARE\Microsoft\Windows NT\Currentversion\Winlogon" 2>nul ^| findstr "DefaultUserName DefaultDomainName DefaultPassword" 
 reg query HKLM /f password /t REG_SZ /s /k
 reg query HKCU /f password /t REG_SZ /s /k
 reg query "HKCU\Software\ORL\WinVNC3\Password" 
@@ -153,7 +153,7 @@ echo %blue% ..................................................... %normal%
 echo .
 
 echo %cyan% Scheduled tasks: %normal%
-schtasks /query /fo LIST /v | findstr "TaskName Author: Run: User:"
+schtasks /query /fo LIST /v ^| findstr "TaskName Author: Run: User:"
 
 echo %cyan% SAM and SYSTEM files: %normal%
 dir %SYSTEMROOT%\repair\SAM 2>nul
