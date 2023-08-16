@@ -75,7 +75,7 @@ del SituationalAwareness.txt
 echo %blue% ..................................................... %normal% >> OsInfo.txt
 echo %green%                    OS INFORMATION %normal >> OsInfo.txt
 echo %blue% ..................................................... %normal% >> OsInfo.txt
-echo . >> OsInfo.txt
+echo. >> OsInfo.txt
 
 echo %green% Windows  Product Name: %normal% >> OsInfo.txt
 HKLM\Software\Microsoft\Windows NT\CurrentVersion /v ProductName >> OsInfo.txt
@@ -137,7 +137,7 @@ del Users.txt
 echo %blue% ..................................................... %normal% >> Passwords.txt
 echo %green%                   PASSWORDS %normal >> Passwords.txt
 echo %blue% ..................................................... %normal% >> Passwords.txt
-echo . >> Passwords.txt
+echo. >> Passwords.txt
 
 echo %cyan% HKLM and HKCU: %normal% >> Passwords.txt
 reg query "HKLM\SOFTWARE\Microsoft\Windows NT\Currentversion\Winlogon" 2>nul ^| findstr "DefaultUserName DefaultDomainName DefaultPassword"  >> Passwords.txt
@@ -162,7 +162,7 @@ del Passwords.txt
 echo %blue% ..................................................... %normal% >> Security.txt
 echo %green%               SECURITY DETECTION  %normal  >> Security.txt
 echo %blue% ..................................................... %normal% >> Security.txt
-echo . >> Security.txt
+echo. >> Security.txt
 
 echo %red% Antivirus detection: %normal% >> Security.txt
 WMIC /Node:localhost /Namespace:\\root\SecurityCenter2 Path AntiVirusProduct Get displayName >> Security.txt
@@ -175,7 +175,7 @@ del Security.txt
 echo %blue% ..................................................... %normal% >> Files.txt
 echo %green%                SCHED TASKS AND FILES %normal  >> Files.txt
 echo %blue% ..................................................... %normal% >> Files.txt
-echo . >> Files.txt
+echo. >> Files.txt
 
 echo %cyan% Scheduled tasks: %normal% >> Files.txt
 schtasks /query /fo LIST /v ^| findstr "TaskName Author: Run: User:" >> Files.txt
@@ -222,6 +222,25 @@ type Files.txt
 type Files.txt >> WayStar.txt
 del Files.txt
 
+echo %blue% ..................................................... %normal% >> Persistence.txt
+echo %green%                PLACES FOR PERSISTENCE %normal  >> Persistence.txt
+echo %blue% ..................................................... %normal%  >> Persistence.txt
+echo. >> Persistence.txt
+
+echo %cyan% Possible locations to set up persistence: %normal% >> Persistence.txt
+reg query HKEY_CURRENT_USER\Software\Microosoft\Windows\CurrentVersion\Run >> Persistence.txt
+reg query HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\RunOnce >> Persistence.txt
+reg query HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Run >> Persistence.txt
+reg query HKEY_LOCAL_MACHINE\SOftware\Microsoft\Windows\CurrentVersion\RunOnce >> Persistence.txt
+reg query HKEY_LOCAL_MACHINE\SOftware\Microsoft\Windows\CurrentVersion\RunOnceEx >> Persistence.txt
+reg query "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders" >> Persistence.txt
+reg query "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders" >> Persistence.txt
+reg query "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders" >> Persistence.txt
+reg query "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders" >> Persistence.txt
+
+type Persistence.txt
+type Persistence.txt >> WayStar.txt
+del Persistence.txt
 
 ::
 ::ENDING ACTIONS
@@ -285,6 +304,7 @@ echo %cyan% Credentials: %normal%
 Get-ChildItem -Hidden C:\Users\username\AppData\Local\Microsoft\Credentials\
 Get-ChildItem -Hidden C:\Users\username\AppData\Roaming\Microsoft\Credentials\
 echo.
+
 
 
 echo %red% All contents saved to WayStar.txt %normal%
