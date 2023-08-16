@@ -46,9 +46,11 @@ echo.
 echo.
 
 :: BEGINNING OF SCRIPT
+
 echo %blue% ..................................................... %normal% >> SituationalAwareness.txt
 echo %green%             SITUATIONAL AWARENESS %normal >> SituationalAwareness.txt
 echo %blue% ..................................................... %normal% >> SituationalAwareness.txt
+
 echo . >> SituationalAwareness.txt
 echo %cyan% Current user: %normal% >> SituationalAwareness.txt
 echo %USERNAME% >> SituationalAwareness.txt
@@ -103,6 +105,8 @@ echo . >> Users.txt
 
 echo %cyan% Admins: %normal% >> Users.txt
 net localgroup administrators >> Users.txt
+echo %cyan% Accounts and Groups with admin access to domain controler: %normal% >> Users.txt
+net localgroup administrators /domain >> Users.txt
 echo. >> Users.txt
 
 %cyan% Users: %normal% >> Users.txt
@@ -198,9 +202,30 @@ icalcs "C:\Program Files\*" 2>nul | findstr "(F)" | findstr "BUILTIN\Users" >> F
 icalcs "C:\Program Files (x86)\*" 2>nul | findstr "(F)" | findstr "BUILTIN\Users" >> Files.txt
 echo. >> Files.txt
 
+echo %cyan% Recent Wordpad Documents: %normal% >> Files.txt
+reg query "HKCU\SOftware\Microsoft\Windows\CurrentVersion\Applets\Wordpad\Recent File List" >> Files.txt
+echo. >> Files.txt
+
+
+echo %cyan% Typed URLS: %normal% >> Files.txt
+reg query "HKCU\Software\Microsoft\Internet Explorer\TypedURLS" >> Files.txt
+echo. >> Files.txt
+
+echo %cyan% Mounted Devices: %normal% >> Files.txt
+reg query HKLM\System\MountedDevices >> Files.txt
+echo. >> Files.txt
+
+echo %cyan$ USB devices: %normal% >> Files.txt
+reg query HKLM\System\CurrentControlSet\Enum\USB >> Files.txt
+
 type Files.txt
 type Files.txt >> WayStar.txt
 del Files.txt
+
+
+::
+::ENDING ACTIONS
+::
 
 :: cleaning files
 del %WINDIR%\*.log /a /s /q /f
@@ -214,7 +239,7 @@ echo %blue% ..................................................... %normal%
 echo .
 
 
-
+::ntusers.dat file windows
 
 :: display all processes
 wmic process get procesid,commandline
@@ -232,13 +257,29 @@ powershell
 SaveNothing
 MaximumHistoryCount 0
 
+:: color variables
+SET red=color 04
+SET gray=color 08
+SET black=color 00
+SET green=color 0a
+SET yellow=color 06
+SET blue=color 09
+SET magenta=color 0c
+SET cyan=color 03
+SET white=color 0f
+SET blink=color 0f
+SET normal=color
+
+echo %cyan% Antivirus: %normal%
+Get-WmiObject -Name space "root\SecurityCenter2" -Class AntiVirusProduct -ErrorAction Stop
+
 echo %cyan% Version: %normal%
 $psVersionTable
 echo.
 
 echo %cyan% Antivirus: %normal%
 Get-WmiObject -Namespace "root\SecurityCenter2" -Class AntiVirusProduct -ErrorAction Stop
-echo.
+echo. 
 
 echo %cyan% Credentials: %normal%
 Get-ChildItem -Hidden C:\Users\username\AppData\Local\Microsoft\Credentials\
