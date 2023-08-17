@@ -286,7 +286,7 @@ SET blue=color 09
 SET magenta=color 0c
 SET cyan=color 03
 SET white=color 0f
-SET blink=color 0f
+SET blink=color 0f 
 SET normal=color
 
 echo %cyan% Antivirus: %normal%
