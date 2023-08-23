@@ -218,6 +218,9 @@ echo. >> Files.txt
 echo %cyan$ USB devices: %normal% >> Files.txt
 reg query HKLM\System\CurrentControlSet\Enum\USB >> Files.txt
 
+echo %cyan% Logical Drives: %normal% >> Files.txt
+wmic logicaldisk get description,name >> Files.txt
+
 type Files.txt
 type Files.txt >> WayStar.txt
 del Files.txt
@@ -259,13 +262,6 @@ echo .
 
 
 ::ntusers.dat file windows
-
-:: display all processes
-wmic process get procesid,commandline
-
-:: display logical drives
-wmic logicaldisk get description,name
-
 
 echo %blue% ..................................................... %normal%
 echo %green%                     POWERSHELL   %normal%
