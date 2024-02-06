@@ -192,21 +192,6 @@ echo.
 
 
 echo %blue% ..................................................... %normal%
-echo %green%                 Other Stuff to add %normal
-echo %blue% ..................................................... %normal%
-echo .
-
-
-
-
-:: display all processes
-wmic process get procesid,commandline
-
-:: display logical drives
-wmic logicaldisk get description,name
-
-
-echo %blue% ..................................................... %normal%
 echo %green%                     Powershell   %normal%
 echo %blue% ..................................................... %normal%
 echo .
